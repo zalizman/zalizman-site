@@ -1,0 +1,10 @@
+# FTP-inlogg — ALDRIG i git!
+ftp_credentials.txt.txt
+ftp_credentials.txt
+
+# Python
+__pycache__/
+*.pyc
+
+# Forsknings-underlag (gammalt skräp, kan raderas)
+_research/

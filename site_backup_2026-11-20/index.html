@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zalizman — Trading Tools for cTrader</title>
+  <meta name="description" content="ZaliMatrix: standalone cBots, a validation server with 44 filter blocks and an AI layer, and chart tools for cTrader. One-time purchase on Payhip — no subscriptions.">
+  <link rel="icon" type="image/jpeg" href="images/logo.jpg">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <img src="images/logo.jpg" alt="Zalizman logo">
+      <span>ZALIZMAN</span>
+    </a>
+    <nav class="main-nav">
+      <a href="index.html" class="active">Home</a>
+      <a href="cbots.html">Cbots</a>
+      <a href="matrix.html">Matrix</a>
+      <a href="pics.html">Pics</a>
+      <a href="https://payhip.com/ZalizmanTrading" class="btn btn-gold btn-sm" target="_blank" rel="noopener">Buy on Payhip</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <img class="logo-badge" src="images/logo.jpg" alt="Zalizman — captain at the helm">
+    <h1>Transforming Trading: <span class="accent">From Hobby to Precision Tools</span></h1>
+    <p class="lead">Discover how ZaliMatrix evolved from a simple tracker to a sophisticated algorithmic system that empowers traders with customizable tools.</p>
+    <div class="cta-row">
+      <a class="btn btn-gold" href="https://payhip.com/ZalizmanTrading" target="_blank" rel="noopener">Buy on Payhip</a>
+      <a class="btn btn-ghost" href="#tools">Explore the tools</a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap story">
+    <div>
+      <h3>Why I built this</h3>
+      <p>I trade forex on cTrader in my spare time. Like most retail traders, I spent years looking for tools that matched the way I actually think about markets — price action, structure, patience. Most of what's out there is either too simple or completely opaque.</p>
+      <p><strong>So I built my own.</strong></p>
+      <p>ZaliMatrix started as a basic signal tracker. Over time it grew into something I use every day: a set of cBots that trade my manual setups automatically, a validation server that filters signals through 44 rule blocks and an AI model before any trade opens, and a dashboard that keeps everything under control while I'm away from the screen.</p>
+    </div>
+    <div>
+      <h3>Why I'm sharing it</h3>
+      <p>The tools work. Not perfectly — this is a hobby project running on a demo account, not a hedge fund — but well enough that I think other traders would find them useful. The price reflects that. This isn't a subscription service. You buy the file, you own it.</p>
+      <p>If something doesn't work for your setup, <a href="mailto:zalizman@pm.me">email me</a>. I actually respond.</p>
+    </div>
+  </div>
+</section>
+
+<section id="tools" class="section-soft">
+  <div class="wrap">
+    <h2 class="section-title">Standalone cBots</h2>
+    <p class="section-sub">cBots for cTrader. Each one does one job — and does it without needing a server, a subscription, or an internet connection.</p>
+    <div class="grid-3">
+      <div class="card">
+        <div class="thumb"><img src="images/gaptrader.jpg" alt="GapTrader Bot" loading="lazy"></div>
+        <div class="body">
+          <span class="cat">cBot · Range markets</span>
+          <h3>GapTrader Bot</h3>
+          <p>Draw a support or resistance zone on the chart. GapTrader watches it, times the entry, filters the spread, and fires the trade — with Telegram notification included.</p>
+          <a class="card-link" href="cbots.html">Learn more →</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="thumb"><img src="images/futuretrader.jpg" alt="FutureTrader Bot" loading="lazy"></div>
+        <div class="body">
+          <span class="cat">cBot · Trending markets</span>
+          <h3>FutureTrader Bot</h3>
+          <p>Draw a trendline or channel. FutureTrader monitors price and trades the bounces or breakouts automatically — good for trends that run over days or weeks.</p>
+          <a class="card-link" href="cbots.html">Learn more →</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="thumb"><img src="images/matrix-indicator.jpg" alt="MatrixBasket Hybrid" loading="lazy"></div>
+        <div class="body">
+          <span class="cat">cBot · Multi-currency</span>
+          <h3>MatrixBasket Hybrid</h3>
+          <p>Compares currency strength across H4 and H1. Generates buy/sell signals based on strength gaps and trades them automatically with pullback entry and correlation checking.</p>
+          <a class="card-link" href="matrix.html">Learn more →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 class="section-title">Tools that guard the trades</h2>
+    <p class="section-sub">Tools that don't place trades — they make sure the other tools don't take unnecessary risks, and that every signal is worth acting on.</p>
+    <div class="grid-3">
+      <div class="card">
+        <div class="thumb"><img src="images/tradecontrol.jpg" alt="TradeControl Dashboard" loading="lazy"></div>
+        <div class="body">
+          <span class="cat">Dashboard · Risk management</span>
+          <h3>TradeControl Dashboard</h3>
+          <p>Watches all open positions across every pair. Tracks drawdown, checks correlation, and automatically blocks new trades when your risk limits are hit.</p>
+          <a class="card-link" href="https://payhip.com/ZalizmanTrading" target="_blank" rel="noopener">Get it on Payhip →</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="thumb"><img src="images/ai-validator.jpg" alt="Matrix Validation Server" loading="lazy"></div>
+        <div class="body">
+          <span class="cat">Server · AI filter</span>
+          <h3>Matrix Validation Server</h3>
+          <p>Every signal passes through 44 filter blocks — trend, session, strength, PSAR, risk — then an AI model gives a final yes or no. Runs on any VPS with a live web dashboard.</p>
+          <a class="card-link" href="matrix.html">Learn more →</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="thumb"><img src="images/linehelper.jpg" alt="LineHelper Pro" loading="lazy"></div>
+        <div class="body">
+          <span class="cat">Indicator · Chart tool</span>
+          <h3>LineHelper Pro</h3>
+          <p>Draw and manage trigger lines directly on the chart. The layer that GapTrader and FutureTrader listen to — clean, fast, and built for active chart traders.</p>
+          <a class="card-link" href="https://payhip.com/ZalizmanTrading" target="_blank" rel="noopener">Get it on Payhip →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="flow" class="section-soft">
+  <div class="wrap">
+    <h2 class="section-title">How the whole system flows</h2>
+    <p class="section-sub">Run the full ZaliMatrix ecosystem and every signal is guarded on its way from chart to order. Every step also works standalone — the flow is optional, never required.</p>
+    <div class="flow">
+      <div class="flow-step">
+        <span class="flow-num">1</span>
+        <div class="flow-icon">🎯</div>
+        <h3>Signal</h3>
+        <p>Indicator &amp; cBots spot the setup — price action, currency strength, gaps or trendlines.</p>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <span class="flow-num">2</span>
+        <div class="flow-icon">🛡️</div>
+        <h3>44 filters</h3>
+        <p>The validation server scores every signal through 44 rule blocks — session, trend, strength, PSAR, risk.</p>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <span class="flow-num">3</span>
+        <div class="flow-icon">🤖</div>
+        <h3>AI gate</h3>
+        <p>An AI model makes the final call — ALLOW or BLOCK — with SL &amp; TP calculated. Auto-fallback keeps it online.</p>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <span class="flow-num">4</span>
+        <div class="flow-icon">⚡</div>
+        <h3>Execution</h3>
+        <p>The cBot opens the trade with SL/TP already set — one position per pair, spread and session guarded.</p>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <span class="flow-num">5</span>
+        <div class="flow-icon">📊</div>
+        <h3>Control</h3>
+        <p>TradeControl Dashboard watches live PnL — break-even, close commands and Telegram alerts.</p>
+      </div>
+    </div>
+    <p class="flow-note">Every decision is logged — what came in, what it passed, what the AI decided. You can watch your system think.</p>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="wrap">
+    <h2>Dropped on Payhip. Simple. Smart. Powerful.</h2>
+    <p>One-time purchase — you buy the file, you own it. No subscriptions, no lock-in.</p>
+    <a class="btn btn-gold" href="https://payhip.com/ZalizmanTrading" target="_blank" rel="noopener">Visit the Payhip store</a>
+  </div>
+</section>
+  <div class="wrap">
+    <h2>Dropped on Payhip. Simple. Smart. Powerful.</h2>
+    <p>One-time purchase — you buy the file, you own it. No subscriptions, no lock-in.</p>
+    <a class="btn btn-gold" href="https://payhip.com/ZalizmanTrading" target="_blank" rel="noopener">Visit the Payhip store</a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>© 2026 zalizman.se</span>
+    <span><a href="https://payhip.com/ZalizmanTrading" target="_blank" rel="noopener">Payhip</a> · <a href="mailto:zalizman@pm.me">zalizman@pm.me</a></span>
+    <span class="footer-note">Hobby project — runs on a demo account. Trading involves risk; past performance is not indicative of future results.</span>
+  </div>
+</footer>
+
+</body>
+</html>

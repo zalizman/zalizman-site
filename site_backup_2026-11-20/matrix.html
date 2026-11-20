@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Matrix Validation Server | zalizman.se</title>
+  <meta name="description" content="Matrix Validation Server: every signal passes 44 filter blocks — session, trend, strength, PSAR, risk — then an AI layer gives a final ALLOW or BLOCK. Runs on any VPS.">
+  <link rel="icon" type="image/jpeg" href="images/logo.jpg">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <img src="images/logo.jpg" alt="Zalizman logo">
+      <span>ZALIZMAN</span>
+    </a>
+    <nav class="main-nav">
+      <a href="index.html">Home</a>
+      <a href="cbots.html">Cbots</a>
+      <a href="matrix.html" class="active">Matrix</a>
+      <a href="pics.html">Pics</a>
+      <a href="https://payhip.com/ZalizmanTrading" class="btn btn-gold btn-sm" target="_blank" rel="noopener">Buy on Payhip</a>
+    </nav>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="wrap">
+    <h1>Matrix Validation Server</h1>
+    <p>44 rules. One AI. No bad trades.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap story">
+    <div>
+      <p>Every trading system has the same problem. The setup looks good. The chart agrees. And then the trade opens at exactly the wrong moment — wrong session, correlated pair already running, spread too wide, trend actually pointing the other way.</p>
+      <p><strong>The Matrix Validation Server exists to catch that moment before it costs you.</strong></p>
+    </div>
+    <div>
+      <img src="images/ai-validator.jpg" alt="Matrix Validation Server dashboard" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<section class="section-soft">
+  <div class="wrap">
+    <h2 class="section-title">How it works</h2>
+    <p class="section-sub">Every signal from your cBot goes through the server before a single order is placed. The server doesn't guess. It runs the signal through 44 individual filter blocks, one by one, each checking a specific condition.</p>
+    <div class="info-grid">
+      <div class="info-card">
+        <h3>Session filters</h3>
+        <p>Is this a valid trading window for this pair, or is liquidity too thin?</p>
+      </div>
+      <div class="info-card">
+        <h3>Trend filters</h3>
+        <p>Is price actually moving in the direction the bot wants to trade, or just retracing?</p>
+      </div>
+      <div class="info-card">
+        <h3>Strength filters</h3>
+        <p>Is the currency behind the signal showing real momentum, or is it flat?</p>
+      </div>
+      <div class="info-card">
+        <h3>PSAR filters</h3>
+        <p>Has the parabolic SAR confirmed the move on the relevant timeframes?</p>
+      </div>
+      <div class="info-card">
+        <h3>Risk filters</h3>
+        <p>Is there already too much exposure on correlated pairs? Is drawdown within limits?</p>
+      </div>
+      <div class="info-card">
+        <h3>…and 39 more</h3>
+        <p>Spread, zones, divergence, momentum, box structure, direction bias — every angle a careful trader would check by hand, checked automatically on every signal.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap story">
+    <div>
+      <h2 class="section-title" style="text-align:left;">The AI layer</h2>
+      <p>The last check isn't a rule. It's a question.</p>
+      <p>The server sends the full signal context — pair, direction, score, zone data, session, ATR, RSI, currency strength readings — to a large language model. The AI layer runs with automatic provider fallback: if the primary model is unreachable, the next one takes over, so a single provider outage never blocks a trade.</p>
+      <p>The AI reads everything and returns one of two answers: <strong>ALLOW</strong> or <strong>BLOCK</strong>. It also explains why. Every decision is logged — what the AI saw, what it concluded, and how long it took. Response time is typically under two seconds.</p>
+      <p>This isn't AI for the sake of AI. The 44 filters handle the mechanical rules. The AI handles the context — the things that are hard to express as a rule but obvious when you see the full picture.</p>
+    </div>
+    <div>
+      <img src="images/python-groq.png" alt="AI signal filter" style="max-width:320px; margin:30px auto;" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<section class="section-soft">
+  <div class="wrap">
+    <h2 class="section-title">What it runs on</h2>
+    <div class="info-grid" style="margin-top:30px;">
+      <div class="info-card">
+        <h3>A basic VPS</h3>
+        <p>€5–10 a month from any provider. The server is a Python application — no heavy dependencies, no database beyond SQLite, no cloud services required beyond an API key for the AI provider.</p>
+      </div>
+      <div class="info-card">
+        <h3>A live web dashboard</h3>
+        <p>Every signal check in real time — what came in, which blocks it passed, which it failed, and what the AI decided. You can watch your system think.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 class="section-title">The result</h2>
+    <div class="wrap" style="display:flex; justify-content:center; margin-top:24px;">
+      <ul class="feature-list" style="max-width:640px;">
+        <li>Signals that would have opened losing trades during dead sessions — <strong>blocked</strong>.</li>
+        <li>Signals that looked fine on one pair but were correlated with three others already running — <strong>blocked</strong>.</li>
+        <li>Signals that passed every mechanical rule but arrived during a high-impact news window — <strong>blocked</strong>.</li>
+        <li>Signals that were genuinely good — <strong>allowed</strong>, with SL and TP already calculated, position size confirmed, Telegram notification sent.</li>
+      </ul>
+    </div>
+    <p class="section-sub" style="margin-top:28px;">The server runs in the background. You don't watch it. That's the point.</p>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="wrap">
+    <h2>Part of the ZaliMatrix ecosystem</h2>
+    <p>Connects to GapTrader, FutureTrader, and MatrixBasket Hybrid — or runs standalone as a filter layer for any cTrader cBot that can make an HTTP request.</p>
+    <a class="btn btn-gold" href="https://payhip.com/ZalizmanTrading" target="_blank" rel="noopener">Get the Matrix Validation Server</a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>© 2026 zalizman.se</span>
+    <span><a href="https://payhip.com/ZalizmanTrading" target="_blank" rel="noopener">Payhip</a> · <a href="mailto:zalizman@pm.me">zalizman@pm.me</a></span>
+    <span class="footer-note">Hobby project — runs on a demo account. Trading involves risk; past performance is not indicative of future results.</span>
+  </div>
+</footer>
+
+</body>
+</html>
