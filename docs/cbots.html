@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cbots — GapTrader &amp; FutureTrader | zalizman.se</title>
+  <meta name="description" content="GapTrader and FutureTrader: standalone cBots for cTrader. Price action, levels and patience — no servers, no subscriptions, no AI dependencies.">
+  <link rel="icon" type="image/jpeg" href="images/logo.jpg">
+  <style>
+    :root {
+      --bg: #0a1524; --bg-soft: #0f1f35; --surface: #132239; --surface-2: #182b47;
+      --border: #24395c; --fg: #e9eef6; --muted: #9db0c9;
+      --brass: #d9a93c; --brass-bright: #f0c96a; --rope: #b98c4a; --sea: #4da3ff;
+      --green: #3fbf7f; --danger: #d64545; --maxw: 1120px;
+      --font-display: Georgia, 'Times New Roman', serif;
+      --font-body: "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; font-family: var(--font-body); background:
+      radial-gradient(1100px 500px at 80% -8%, rgba(77,163,255,.10), transparent 60%),
+      radial-gradient(800px 400px at 10% 0%, rgba(217,169,60,.08), transparent 55%),
+      var(--bg); color: var(--fg); line-height: 1.65; }
+    img { max-width: 100%; height: auto; display: block; }
+    a { color: var(--brass-bright); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 22px; }
+    .rope-line { height: 3px; border: 0; margin: 0; background: repeating-linear-gradient(115deg, var(--rope) 0 14px, var(--brass) 14px 22px, var(--rope) 22px 36px); opacity: .55; }
+    .site-header { position: sticky; top: 0; z-index: 50; background: rgba(10,21,36,.94); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); }
+    .site-header .wrap { display: flex; align-items: center; gap: 18px; padding: 10px 22px; }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; letter-spacing: .12em; color: var(--fg); font-size: 1rem; }
+    .brand:hover { text-decoration: none; }
+    .brand img { width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--rope); }
+    nav.main-nav { margin-left: auto; display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+    nav.main-nav a { color: var(--muted); padding: 8px 12px; border-radius: 8px; font-size: .95rem; }
+    nav.main-nav a:hover { color: var(--fg); background: var(--bg-soft); text-decoration: none; }
+    nav.main-nav a.active { color: var(--brass-bright); }
+    .btn { display: inline-block; padding: 12px 24px; border-radius: 10px; font-weight: 700; font-size: 1rem; border: 1px solid transparent; transition: transform .12s ease; cursor: pointer; }
+    .btn:hover { text-decoration: none; transform: translateY(-1px); }
+    .btn-brass { background: linear-gradient(135deg, var(--brass), var(--rope)); color: #10192b; box-shadow: 0 4px 18px rgba(217,169,60,.28); }
+    .btn-sm { padding: 8px 16px; font-size: .9rem; }
+    nav.main-nav a.btn-brass { color: #10192b; }
+    .page-hero { padding: 52px 0 40px; text-align: center; }
+    .page-hero h1 { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.8rem, 4vw, 2.7rem); margin: 0 0 12px; }
+    .page-hero p { color: var(--muted); max-width: 680px; margin: 0 auto; }
+    section { padding: 48px 0; }
+    .section-title { font-family: var(--font-display); font-weight: 400; font-size: 1.8rem; margin: 0 0 8px; text-align: center; }
+    .section-sub { color: var(--muted); text-align: center; max-width: 680px; margin: 0 auto 30px; }
+    .section-soft { background: rgba(19,34,57,.45); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+    .info-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px; }
+    .info-card h3 { font-family: var(--font-display); font-weight: 400; margin: 0 0 10px; font-size: 1.2rem; color: var(--brass-bright); }
+    .info-card p { margin: 0 0 8px; color: var(--fg); font-size: .95rem; }
+    .info-card img { border-radius: 8px; margin-top: 10px; }
+    .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 26px; }
+    .feature-list { margin: 0; padding-left: 20px; color: var(--fg); font-size: .95rem; }
+    .feature-list li { margin-bottom: 7px; }
+    .feature-list strong { color: var(--brass-bright); }
+    .chain { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin: 22px 0 0; justify-content: center; }
+    .chain .step { background: var(--surface-2); border: 1px solid var(--border); border-radius: 999px; padding: 8px 16px; font-size: .92rem; white-space: nowrap; }
+    .chain .arrow { width: 22px; height: 2px; background: var(--rope); position: relative; }
+    .chain .arrow::after { content: ""; position: absolute; right: -1px; top: -4px; border-left: 8px solid var(--rope); border-top: 4px solid transparent; border-bottom: 4px solid transparent; }
+    .pull { font-family: var(--font-display); font-size: 1.3rem; font-style: italic; color: var(--brass-bright); text-align: center; max-width: 640px; margin: 30px auto; padding: 0 20px; }
+    .cta-band { padding: 46px 0; text-align: center; background: linear-gradient(180deg, rgba(217,169,60,.10), rgba(217,169,60,.02)); border-top: 1px solid var(--border); }
+    .cta-band h2 { font-family: var(--font-display); font-weight: 400; font-size: 1.8rem; margin: 0 0 8px; }
+    .cta-band p { color: var(--muted); margin: 0 0 20px; }
+    .site-footer { padding: 30px 0 40px; border-top: 1px solid var(--border); color: var(--muted); font-size: .9rem; }
+    .site-footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .footer-note { flex-basis: 100%; font-size: .8rem; opacity: .8; }
+    @media (max-width: 900px) { .grid-2, .info-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 600px) { .grid-2, .info-grid { grid-template-columns: 1fr; } .site-header .wrap { flex-wrap: wrap; } nav.main-nav { margin-left: 0; width: 100%; justify-content: center; } }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <img src="images/logo.jpg" alt="Zalizman">
+      <span>ZALIZMAN</span>
+    </a>
+    <nav class="main-nav">
+      <a href="index.html">Home</a>
+      <a href="cbots.html" class="active">cBots</a>
+      <a href="matrix.html">Matrix</a>
+      <a href="pics.html">Gallery</a>
+      <a href="https://payhip.com/ZalizmanTrading" class="btn btn-brass btn-sm" target="_blank" rel="noopener">Buy on Payhip</a>
+    </nav>
+  </div>
+</header>
+<hr class="rope-line">
+
+<section class="page-hero">
+  <div class="wrap">
+    <h1>Two bots. One logic. Endless precision.</h1>
+    <p>GapTrader and FutureTrader are standalone cBots built around a single obsession: letting price itself pull the trigger. No black boxes. No servers. No AI dependencies. Just lines, levels, and the discipline to wait.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="grid-2">
+      <div class="info-card">
+        <h3>GapTrader · cTrader · Price Action</h3>
+        <p><strong>It trades what the market tries to forget.</strong></p>
+        <p>Price gaps are unfinished business. GapTrader identifies unfilled gaps — session opens, weekend breaks, news spikes — and patiently waits for price to return. When the fill happens, it's already in the trade.</p>
+        <p><img src="images/gaptrader.jpg" alt="GapTrader Bot" loading="lazy"></p>
+      </div>
+      <div class="info-card">
+        <h3>FutureTrader · cTrader · Price Action</h3>
+        <p><strong>It trades where price is going, not where it's been.</strong></p>
+        <p>FutureTrader draws forward-looking bias lines from key structural points — swing highs, lows, session pivots — and enters the moment price confirms the move. Direction first. Entry second.</p>
+        <p><img src="images/futuretrader.jpg" alt="FutureTrader Bot" loading="lazy"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-soft">
+  <div class="wrap">
+    <h2 class="section-title">Core mechanic — one line triggers another</h2>
+    <p class="section-sub">The entire system runs on a layered trigger model. A line doesn't just sit on the chart — it activates the next one. Break a structure level and the entry line arms. Touch the entry line and the trade fires. Miss the target and the system resets — quietly, automatically.</p>
+    <div class="chain">
+      <span class="step">Gap identified</span><span class="arrow"></span>
+      <span class="step">Proximity line arms</span><span class="arrow"></span>
+      <span class="step">Price crosses trigger</span><span class="arrow"></span>
+      <span class="step">Entry fires</span><span class="arrow"></span>
+      <span class="step">SL / TP set</span>
+    </div>
+    <blockquote class="pull">"The best trades don't need a model to validate them. They need a rule, a level, and the patience to let price come to you."</blockquote>
+    <p class="section-sub">These bots don't call external APIs. They don't ask an AI for permission. They read one thing: price. Levels are drawn from raw market structure — the same way a chart trader does it by hand — then handed off to automation.</p>
+    <div class="wrap" style="display:flex; justify-content:center;">
+      <ul class="feature-list" style="columns:2; column-gap:40px;">
+        <li>Swing highs &amp; lows</li>
+        <li>Session gaps</li>
+        <li>Break of structure</li>
+        <li>ATR-based SL</li>
+        <li>No indicator dependency</li>
+        <li>No server required</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 class="section-title">Standalone mode — deploy anywhere, no setup</h2>
+    <div class="info-grid" style="margin-top:30px;">
+      <div class="info-card">
+        <h3>Zero infrastructure</h3>
+        <p>Drop the cBot into any cTrader account and go. No Python server, no database, no VPS, no API keys. The logic lives entirely inside the bot.</p>
+      </div>
+      <div class="info-card">
+        <h3>Optional ZaliMatrix integration</h3>
+        <p>Running ZaliMatrix? Both bots can optionally connect for AI signal validation, Telegram alerts, and multi-pair coordination. But it's never required.</p>
+      </div>
+      <div class="info-card">
+        <h3>Configurable via cTrader UI</h3>
+        <p>All parameters — gap size, trigger distance, SL type, lot sizing — are exposed directly in cTrader's parameters panel. No config files to edit.</p>
+      </div>
+      <div class="info-card">
+        <h3>Works on demo &amp; live</h3>
+        <p>Tested on real market conditions. Identical behavior on demo and live accounts — what you see in testing is what you get when the stakes are real.</p>
+      </div>
+    </div>
+    <p style="text-align:center; color:var(--muted); margin-top:24px;">cTrader · C# · ZaliMatrix-compatible · Standalone mode available</p>
+  </div>
+</section>
+
+<section class="section-soft">
+  <div class="wrap">
+    <h2 class="section-title">GapTrader — under the hood</h2>
+    <p class="section-sub">A fully automated trading bot for range-bound markets. Perfect for sailors, remote workers, and anyone who needs "set-and-forget" trading. Works with Matrix integration for complete automation.</p>
+    <div class="info-grid">
+      <div class="info-card">
+        <h3>8-color line system</h3>
+        <ul class="feature-list">
+          <li><strong>BLUE/RED lines</strong> — entry boxes (buy zones / sell zones)</li>
+          <li><strong>WHITE/PURPLE lines</strong> — activation signals (optional confirmation)</li>
+          <li><strong>GREEN line</strong> — liquidity gate (advanced mode safety)</li>
+          <li><strong>ORANGE/PINK lines</strong> — profit-taking zones</li>
+          <li><strong>YELLOW line</strong> — emergency kill switch (stops all trading)</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h3>Entry modes</h3>
+        <ul class="feature-list">
+          <li><strong>ImmediateBreakout</strong> — trade box breakouts instantly</li>
+          <li><strong>PullbackOnly</strong> — wait for pullback to the lines</li>
+          <li><strong>Either</strong> — both breakout and pullback entries</li>
+          <li><strong>MiddleBox</strong> — only trade the middle 40% of the box (safer entries, fewer fakeouts)</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h3>Risk management</h3>
+        <ul class="feature-list">
+          <li>Micro lot support — trade from 0.01 lots</li>
+          <li>Box edge stop loss — automatic SL at box boundaries</li>
+          <li>Risk/reward TP — configurable 1:1 to 5:1 targets</li>
+          <li>Partial close — take 50% profit at TP1, let the rest run</li>
+          <li>Break-even — auto-move SL after +X pips</li>
+          <li>Max trades per box &amp; daily trade limit</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h3>Safety &amp; filters</h3>
+        <ul class="feature-list">
+          <li>Box invalidation — auto-stop if structure breaks</li>
+          <li>Stagnation filter — pauses stale boxes</li>
+          <li>Spread filter — blocks high-spread periods</li>
+          <li>Time filter &amp; Monday gap filter</li>
+          <li>Candle color &amp; momentum (EMA slope) filters</li>
+          <li>Optional news filter integration</li>
+        </ul>
+      </div>
+    </div>
+    <div class="info-grid" style="margin-top:22px;">
+      <div class="info-card">
+        <h3>3 sequence modes</h3>
+        <ul class="feature-list">
+          <li><strong>Basic</strong> (2–4 lines) — buy box + sell box, trade on breakout, no confirmation required</li>
+          <li><strong>Simple</strong> (3–6 lines) — activation line must be hit before the box trades, fewer false signals</li>
+          <li><strong>Advanced</strong> (4–8 lines) — liquidity gate first, activation second, trade last. Highest quality setups only</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h3>Matrix integration</h3>
+        <p>When paired with MatrixBasketHybrid: Matrix analyzes currency strength across W1/D1/H4/H1, broadcasts a BUY or SELL signal, and GapTrader auto-places the entry lines (BUY: blue lines below price · SELL: red lines above price) — then trades them automatically.</p>
+        <p>Toggle it off and you place lines manually. On = complete automation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="wrap">
+    <h2>Set your lines, forget the market</h2>
+    <p>One-time purchase on Payhip — buy the file, own it. Works on demo and live.</p>
+    <a class="btn btn-brass" href="https://payhip.com/ZalizmanTrading" target="_blank" rel="noopener">Get GapTrader &amp; FutureTrader</a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>© 2026 zalizman.se</span>
+    <span><a href="https://payhip.com/ZalizmanTrading" target="_blank" rel="noopener">Payhip</a> · <a href="mailto:zalizman@pm.me">zalizman@pm.me</a></span>
+    <span class="footer-note">Hobby project — runs on a demo account. Trading involves risk; past performance is not indicative of future results.</span>
+  </div>
+</footer>
+
+</body>
+</html>
+
+

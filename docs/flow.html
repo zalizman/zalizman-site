@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The System Flow | zalizman.se</title>
+  <meta name="description" content="Hur hela ZaliMatrix-ekosystemet seglar: signal → 44 filter → AI-port → exekvering → kontroll.">
+  <link rel="icon" type="image/jpeg" href="images/logo.jpg">
+  <style>
+    :root {
+      --bg: #0a1524; --bg-soft: #0f1f35; --surface: #132239; --surface-2: #182b47;
+      --border: #24395c; --fg: #e9eef6; --muted: #9db0c9;
+      --brass: #d9a93c; --brass-bright: #f0c96a; --rope: #b98c4a; --sea: #4da3ff;
+      --maxw: 1120px; --font-display: Georgia, 'Times New Roman', serif;
+      --font-body: "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; font-family: var(--font-body); background:
+      radial-gradient(1100px 500px at 80% -8%, rgba(77,163,255,.10), transparent 60%),
+      radial-gradient(800px 400px at 10% 0%, rgba(217,169,60,.08), transparent 55%),
+      var(--bg); color: var(--fg); line-height: 1.65; }
+    img { max-width: 100%; height: auto; display: block; }
+    a { color: var(--brass-bright); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 22px; }
+    .rope-line { height: 3px; border: 0; margin: 0; background: repeating-linear-gradient(115deg, var(--rope) 0 14px, var(--brass) 14px 22px, var(--rope) 22px 36px); opacity: .55; }
+    .site-header { position: sticky; top: 0; z-index: 50; background: rgba(10,21,36,.94); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); }
+    .site-header .wrap { display: flex; align-items: center; gap: 18px; padding: 10px 22px; }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; letter-spacing: .12em; color: var(--fg); font-size: 1rem; }
+    .brand:hover { text-decoration: none; }
+    .brand img { width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--rope); }
+    nav.main-nav { margin-left: auto; display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+    nav.main-nav a { color: var(--muted); padding: 8px 12px; border-radius: 8px; font-size: .95rem; }
+    nav.main-nav a:hover { color: var(--fg); background: var(--bg-soft); text-decoration: none; }
+    nav.main-nav a.active { color: var(--brass-bright); }
+    .btn { display: inline-block; padding: 8px 16px; border-radius: 10px; font-weight: 700; font-size: .9rem; }
+    .btn-brass { background: linear-gradient(135deg, var(--brass), var(--rope)); color: #10192b; }
+    nav.main-nav a.btn-brass { color: #10192b; }
+    .page-hero { padding: 52px 0 40px; text-align: center; }
+    .page-hero h1 { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.8rem, 4vw, 2.7rem); margin: 0 0 12px; }
+    .page-hero p { color: var(--muted); max-width: 680px; margin: 0 auto; }
+    section { padding: 48px 0; }
+    .section-soft { background: rgba(19,34,57,.45); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .flow { display: flex; align-items: stretch; gap: 8px; flex-wrap: wrap; margin: 30px 0 18px; }
+    .flow-step { flex: 1 1 170px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 16px 18px; position: relative; min-width: 160px; }
+    .flow-num { position: absolute; top: -14px; left: 16px; width: 28px; height: 28px; border-radius: 50%; background: var(--rope); color: #10192b; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: .9rem; }
+    .flow-step h3 { font-family: var(--font-display); font-weight: 400; font-size: 1.15rem; margin: 8px 0 6px; }
+    .flow-step p { margin: 0; font-size: .9rem; color: var(--muted); }
+    .flow-arrow { align-self: center; width: 26px; height: 2px; background: var(--rope); position: relative; flex: 0 0 26px; }
+    .flow-arrow::after { content: ""; position: absolute; right: -1px; top: -4px; border-left: 9px solid var(--rope); border-top: 5px solid transparent; border-bottom: 5px solid transparent; }
+    .flow-note { color: var(--muted); font-size: .92rem; text-align: center; margin: 18px 0 0; }
+    .deep { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 36px; }
+    .deep .info-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px; }
+    .deep h3 { font-family: var(--font-display); font-weight: 400; margin: 0 0 10px; font-size: 1.15rem; color: var(--brass-bright); }
+    .deep p { margin: 0; font-size: .95rem; }
+    .site-footer { padding: 30px 0 40px; border-top: 1px solid var(--border); color: var(--muted); font-size: .9rem; }
+    .site-footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .footer-note { flex-basis: 100%; font-size: .8rem; opacity: .8; }
+    @media (max-width: 900px) { .flow { flex-direction: column; } .flow-arrow { width: 2px; height: 22px; align-self: center; flex-basis: 22px; } .flow-arrow::after { right: auto; top: auto; bottom: -1px; left: -4px; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 9px solid var(--rope); border-bottom: 0; } .deep { grid-template-columns: 1fr; } }
+    @media (max-width: 600px) { .site-header .wrap { flex-wrap: wrap; } nav.main-nav { margin-left: 0; width: 100%; justify-content: center; } }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <img src="images/logo.jpg" alt="Zalizman">
+      <span>ZALIZMAN</span>
+    </a>
+    <nav class="main-nav">
+      <a href="index.html">Hem</a>
+      <a href="cbots.html">cBots</a>
+      <a href="matrix.html">Matrix</a>
+      <a href="flow.html" class="active">Flow</a>
+      <a href="https://payhip.com/ZalizmanTrading" class="btn btn-brass" target="_blank" rel="noopener">Buy on Payhip</a>
+    </nav>
+  </div>
+</header>
+<hr class="rope-line">
+
+<section class="page-hero">
+  <div class="wrap">
+    <h1>How the whole system sails</h1>
+    <p>From chart to order — every step guarded, every decision logged.</p>
+  </div>
+</section>
+
+<section class="section-soft">
+  <div class="wrap">
+    <div class="flow">
+      <div class="flow-step">
+        <span class="flow-num">1</span>
+        <h3>Signal</h3>
+        <p>Indikator &amp; cBots ser setupen — prisaction, valutastyrka, gaps eller trendlinjer.</p>
+      </div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step">
+        <span class="flow-num">2</span>
+        <h3>44 filter</h3>
+        <p>The validation server scores every signal through 44 rule blocks — session, trend, strength, PSAR, risk.</p>
+      </div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step">
+        <span class="flow-num">3</span>
+        <h3>AI-port</h3>
+        <p>An AI model makes the final call — ALLOW or BLOCK — with SL &amp; TP calculated. Auto-fallback keeps it online.</p>
+      </div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step">
+        <span class="flow-num">4</span>
+        <h3>Exekvering</h3>
+        <p>The cBot opens the trade with SL/TP already set — one position per pair, spread and session guarded.</p>
+      </div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step">
+        <span class="flow-num">5</span>
+        <h3>Kontroll</h3>
+        <p>TradeControl Dashboard watches live PnL — break-even, close commands and Telegram alerts.</p>
+      </div>
+    </div>
+    <p class="flow-note">Every decision is logged — what came in, what it passed, what the AI decided. You can watch your system think.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="deep">
+      <div class="info-card">
+        <h3>Valfritt, aldrig krav</h3>
+        <p>Each step also works standalone. Running just GapTrader without a server? Fine. Running the full ecosystem? Every signal is guarded all the way. The flow is an enhancement, not a dependency.</p>
+      </div>
+      <div class="info-card">
+        <h3>Fallback genom hela kedjan</h3>
+        <p>The AI gate has provider fallback (glm → groq → kimi). The server has openclaw_fallback=configurable. The cBot has a ReadFromServer guard. If one link goes down, the next takes over — or the trade is blocked safely.</p>
+      </div>
+      <div class="info-card">
+        <h3>Full traceability</h3>
+        <p>The trade_checks table logs every signal: which of the 44 blocks it passed/failed, the AI's confidence, response time. The dashboard's "Trade Check Analytics" gives win-rate per block — you can see which rules actually protect you.</p>
+      </div>
+      <div class="info-card">
+        <h3>Two modes, one philosophy</h3>
+        <p>Standalone cBot = lines, levels, price. ZaliMatrix = 44 filters + AI context. Same philosophy in both: no trade without a protocol saying yes — the protocol is just bigger in the ecosystem.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>© 2026 zalizman.se</span>
+    <span><a href="https://payhip.com/ZalizmanTrading" target="_blank" rel="noopener">Payhip</a> · <a href="mailto:zalizman@pm.me">zalizman@pm.me</a></span>
+    <span class="footer-note">Hobby project — runs on a demo account. Trading involves risk; past performance is not indicative of future results.</span>
+  </div>
+</footer>
+
+</body>
+</html>
+

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zalizman — Trading Tools for cTrader</title>
+  <meta name="description" content="ZaliMatrix: standalone cBots, a validation server with 44 filter blocks and an AI layer, and chart tools for cTrader. One-time purchase on Payhip — no subscriptions.">
+  <link rel="icon" type="image/jpeg" href="images/logo.jpg">
+  <style>
+    :root {
+      --bg: #0a1524; --bg-soft: #0f1f35; --surface: #132239; --surface-2: #182b47;
+      --border: #24395c; --fg: #e9eef6; --muted: #9db0c9;
+      --brass: #d9a93c; --brass-bright: #f0c96a; --rope: #b98c4a; --sea: #4da3ff;
+      --green: #3fbf7f; --danger: #d64545; --maxw: 1120px;
+      --font-display: Georgia, 'Times New Roman', serif;
+      --font-body: "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; font-family: var(--font-body); background:
+      radial-gradient(1100px 500px at 80% -8%, rgba(77,163,255,.10), transparent 60%),
+      radial-gradient(800px 400px at 10% 0%, rgba(217,169,60,.08), transparent 55%),
+      var(--bg); color: var(--fg); line-height: 1.65; }
+    img { max-width: 100%; height: auto; display: block; }
+    a { color: var(--brass-bright); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 22px; }
+    .rope-line { height: 3px; border: 0; margin: 0; background: repeating-linear-gradient(115deg, var(--rope) 0 14px, var(--brass) 14px 22px, var(--rope) 22px 36px); opacity: .55; }
+    .site-header { position: sticky; top: 0; z-index: 50; background: rgba(10,21,36,.94); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); }
+    .site-header .wrap { display: flex; align-items: center; gap: 18px; padding: 10px 22px; }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; letter-spacing: .12em; color: var(--fg); font-size: 1rem; }
+    .brand:hover { text-decoration: none; }
+    .brand img { width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--rope); }
+    nav.main-nav { margin-left: auto; display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+    nav.main-nav a { color: var(--muted); padding: 8px 12px; border-radius: 8px; font-size: .95rem; }
+    nav.main-nav a:hover { color: var(--fg); background: var(--bg-soft); text-decoration: none; }
+    nav.main-nav a.active { color: var(--brass-bright); }
+    .btn { display: inline-block; padding: 12px 24px; border-radius: 10px; font-weight: 700; font-size: 1rem; border: 1px solid transparent; transition: transform .12s ease; cursor: pointer; }
+    .btn:hover { text-decoration: none; transform: translateY(-1px); }
+    .btn-brass { background: linear-gradient(135deg, var(--brass), var(--rope)); color: #10192b; box-shadow: 0 4px 18px rgba(217,169,60,.28); }
+    .btn-ghost { border-color: var(--border); color: var(--fg); background: var(--bg-soft); }
+    .btn-sm { padding: 8px 16px; font-size: .9rem; }
+    nav.main-nav a.btn-brass { color: #10192b; }
+    .hero { padding: 64px 0 56px; text-align: center; position: relative; }
+    .hero .badge { width: 132px; height: 132px; margin: 0 auto 22px; border-radius: 50%; border: 3px solid var(--rope); box-shadow: 0 10px 40px rgba(0,0,0,.5), 0 0 0 6px rgba(185,140,74,.12); }
+    .hero h1 { font-family: var(--font-display); font-weight: 400; font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.15; margin: 0 0 14px; letter-spacing: .01em; }
+    .hero h1 .accent { color: var(--brass-bright); font-style: italic; }
+    .hero .lead { color: var(--muted); max-width: 620px; margin: 0 auto 26px; font-size: 1.08rem; }
+    .cta-row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    section { padding: 54px 0; }
+    .section-title { font-family: var(--font-display); font-weight: 400; font-size: 1.9rem; margin: 0 0 8px; text-align: center; }
+    .section-sub { color: var(--muted); text-align: center; max-width: 640px; margin: 0 auto 36px; }
+    .section-soft { background: rgba(19,34,57,.45); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .story { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+    .story h3 { font-family: var(--font-display); font-weight: 400; font-size: 1.4rem; margin: 0 0 10px; color: var(--brass-bright); }
+    .story p { margin: 0 0 12px; color: var(--fg); }
+    .story .muted { color: var(--muted); }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; transition: transform .15s ease, border-color .15s ease; }
+    .card:hover { transform: translateY(-3px); border-color: var(--rope); }
+    .card .thumb { background: var(--bg-soft); }
+    .card .thumb img { width: 100%; height: auto; }
+    .card .body { padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+    .card .cat { font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+    .card h3 { font-family: var(--font-display); font-weight: 400; font-size: 1.3rem; margin: 0; }
+    .card p { margin: 0; color: var(--muted); font-size: .95rem; flex: 1; }
+    .card .card-link { font-weight: 700; font-size: .92rem; color: var(--brass-bright); }
+    .card .card-link:hover { text-decoration: underline; }
+    .flow { display: flex; align-items: stretch; gap: 8px; margin: 10px 0 18px; flex-wrap: wrap; }
+    .flow-step { flex: 1 1 170px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px 16px; position: relative; min-width: 160px; }
+    .flow-num { position: absolute; top: -14px; left: 16px; width: 28px; height: 28px; border-radius: 50%; background: var(--rope); color: #10192b; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: .9rem; }
+    .flow-step h3 { font-family: var(--font-display); font-weight: 400; font-size: 1.15rem; margin: 8px 0 6px; }
+    .flow-step p { margin: 0; font-size: .9rem; color: var(--muted); }
+    .flow-arrow { align-self: center; width: 26px; height: 2px; background: var(--rope); position: relative; flex: 0 0 26px; }
+    .flow-arrow::after { content: ""; position: absolute; right: -1px; top: -4px; border-left: 9px solid var(--rope); border-top: 5px solid transparent; border-bottom: 5px solid transparent; }
+    .flow-note { color: var(--muted); font-size: .92rem; text-align: center; margin: 18px 0 0; }
+    .cta-band { padding: 46px 0; text-align: center; background: linear-gradient(180deg, rgba(217,169,60,.10), rgba(217,169,60,.02)); border-top: 1px solid var(--border); }
+    .cta-band h2 { font-family: var(--font-display); font-weight: 400; font-size: 1.8rem; margin: 0 0 8px; }
+    .cta-band p { color: var(--muted); margin: 0 0 20px; }
+    .site-footer { padding: 30px 0 40px; border-top: 1px solid var(--border); color: var(--muted); font-size: .9rem; }
+    .site-footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .footer-note { flex-basis: 100%; font-size: .8rem; opacity: .8; }
+    @media (max-width: 900px) { .grid-3 { grid-template-columns: 1fr 1fr; } .story { grid-template-columns: 1fr; } .flow { flex-direction: column; } .flow-arrow { width: 2px; height: 22px; align-self: center; flex-basis: 22px; } .flow-arrow::after { right: auto; top: auto; bottom: -1px; left: -4px; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 9px solid var(--rope); border-bottom: 0; } }
+    @media (max-width: 600px) { .grid-3 { grid-template-columns: 1fr; } .hero h1 { font-size: 1.9rem; } .site-header .wrap { flex-wrap: wrap; } nav.main-nav { margin-left: 0; width: 100%; justify-content: center; } }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <img src="images/logo.jpg" alt="Zalizman — the rooster captain at the helm">
+      <span>ZALIZMAN</span>
+    </a>
+    <nav class="main-nav">
+      <a href="index.html" class="active">Home</a>
+      <a href="cbots.html">cBots</a>
+      <a href="matrix.html">Matrix</a>
+      <a href="pics.html">Gallery</a>
+      <a href="https://payhip.com/ZalizmanTrading" class="btn btn-brass btn-sm" target="_blank" rel="noopener">Buy on Payhip</a>
+    </nav>
+  </div>
+</header>
+<hr class="rope-line">
+
+<section class="hero">
+  <div class="wrap">
+    <img class="badge" src="images/logo.jpg" alt="Zalizman — the rooster captain at the wheel">
+    <h1>Transforming Trading: <span class="accent">From Hobby to Precision Tools</span></h1>
+    <p class="lead">ZaliMatrix started as a simple signal tracker. Today it's a full fleet: cBots that trade manual setups automatically, a validation server with 44 filter blocks and an AI layer — and a dashboard that holds the wheel when you step away from the screen.</p>
+    <div class="cta-row">
+      <a class="btn btn-brass" href="https://payhip.com/ZalizmanTrading" target="_blank" rel="noopener">Buy on Payhip</a>
+      <a class="btn btn-ghost" href="#tools">Explore the tools</a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap story">
+    <div>
+      <h3>Why I built this</h3>
+      <p>I trade forex on cTrader in my spare time. Like most retail traders, I spent years looking for tools that matched the way I actually think about markets — price action, structure, patience. Most of what's out there is either too simple or completely opaque.</p>
+      <p><strong>So I built my own.</strong></p>
+    </div>
+    <div>
+      <h3>Why I'm sharing it</h3>
+      <p class="muted">The tools work. Not perfectly — this is a hobby project running on a demo account, not a hedge fund — but well enough that other traders should get to use them. The price reflects that. No subscription: you buy the file, you own it.</p>
+      <p class="muted">If something doesn't work for your setup, <a href="mailto:zalizman@pm.me">email me</a>. I actually respond.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="rope-line">
+
+<section id="tools" class="section-soft">
+  <div class="wrap">
+    <h2 class="section-title">Standalone cBots</h2>
+    <p class="section-sub">Each cBot does one job — and does it without a server, a subscription, or an internet dependency.</p>
+    <div class="grid-3">
+      <div class="card">
+        <div class="thumb"><img src="images/gaptrader.jpg" alt="GapTrader Bot" loading="lazy"></div>
+        <div class="body">
+          <span class="cat">cBot · Range markets</span>
+          <h3>GapTrader Bot</h3>
+          <p>Draw a support or resistance zone on the chart. GapTrader watches it, times the entry, filters the spread, and fires the trade — with Telegram notification included.</p>
+          <a class="card-link" href="cbots.html">Learn more →</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="thumb"><img src="images/futuretrader.jpg" alt="FutureTrader Bot" loading="lazy"></div>
+        <div class="body">
+          <span class="cat">cBot · Trending markets</span>
+          <h3>FutureTrader Bot</h3>
+          <p>Draw a trendline or channel. FutureTrader monitors price and trades the bounces or breakouts automatically — good for trends that run over days or weeks.</p>
+          <a class="card-link" href="cbots.html">Learn more →</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="thumb"><img src="images/matrix-indicator.jpg" alt="MatrixBasket Hybrid" loading="lazy"></div>
+        <div class="body">
+          <span class="cat">cBot · Multi-currency</span>
+          <h3>MatrixBasket Hybrid</h3>
+          <p>Compares currency strength across H4 and H1. Generates buy/sell signals based on strength gaps and trades them automatically with pullback entry and correlation checking.</p>
+          <a class="card-link" href="matrix.html">Learn more →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 class="section-title">Tools that guard the trades</h2>
+    <p class="section-sub">These don't place trades — they make sure the other tools don't take unnecessary risks, and that every signal is worth acting on.</p>
+    <div class="grid-3">
+      <div class="card">
+        <div class="thumb"><img src="images/tradecontrol.jpg" alt="TradeControl Dashboard" loading="lazy"></div>
+        <div class="body">
+          <span class="cat">Dashboard · Risk management</span>
+          <h3>TradeControl Dashboard</h3>
+          <p>Watches all open positions across every pair. Tracks drawdown, checks correlation, and automatically blocks new trades when your risk limits are hit.</p>
+          <a class="card-link" href="https://payhip.com/ZalizmanTrading" target="_blank" rel="noopener">Get it on Payhip →</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="thumb"><img src="images/ai-validator.jpg" alt="Matrix Validation Server" loading="lazy"></div>
+        <div class="body">
+          <span class="cat">Server · AI filter</span>
+          <h3>Matrix Validation Server</h3>
+          <p>Every signal passes through 44 filter blocks — trend, session, strength, PSAR, risk — then an AI model gives the final yes or no. Runs on any VPS with a live web dashboard.</p>
+          <a class="card-link" href="matrix.html">Learn more →</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="thumb"><img src="images/linehelper.jpg" alt="LineHelper Pro" loading="lazy"></div>
+        <div class="body">
+          <span class="cat">Indicator · Chart tool</span>
+          <h3>LineHelper Pro</h3>
+          <p>Draw and manage trigger lines directly on the chart. The layer that GapTrader and FutureTrader listen to — clean, fast, and built for active chart traders.</p>
+          <a class="card-link" href="https://payhip.com/ZalizmanTrading" target="_blank" rel="noopener">Get it on Payhip →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rope-line">
+
+<section id="flow" class="section-soft">
+  <div class="wrap">
+    <h2 class="section-title">How the whole system sails</h2>
+    <p class="section-sub">Run the full ZaliMatrix ecosystem and every signal is guarded from chart to order. Each step also works standalone — the flow is optional, never required.</p>
+    <div class="flow">
+      <div class="flow-step">
+        <span class="flow-num">1</span>
+        <h3>Signal</h3>
+        <p>Indicator &amp; cBots spot the setup — price action, currency strength, gaps or trendlines.</p>
+      </div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step">
+        <span class="flow-num">2</span>
+        <h3>44 filters</h3>
+        <p>The validation server scores every signal through 44 rule blocks — session, trend, strength, PSAR, risk.</p>
+      </div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step">
+        <span class="flow-num">3</span>
+        <h3>AI gate</h3>
+        <p>An AI model makes the final call — ALLOW or BLOCK — with SL &amp; TP calculated. Auto-fallback keeps it online.</p>
+      </div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step">
+        <span class="flow-num">4</span>
+        <h3>Execution</h3>
+        <p>The cBot opens the trade with SL/TP already set — one position per pair, spread and session guarded.</p>
+      </div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step">
+        <span class="flow-num">5</span>
+        <h3>Control</h3>
+        <p>TradeControl Dashboard watches live PnL — break-even, close commands and Telegram alerts.</p>
+      </div>
+    </div>
+    <p class="flow-note">Every decision is logged — what came in, what it passed, what the AI decided. You can watch your system think.</p>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="wrap">
+    <h2>Dropped on Payhip. Simple. Smart. Powerful.</h2>
+    <p>One-time purchase — you buy the file, you own it. No subscriptions, no lock-in.</p>
+    <a class="btn btn-brass" href="https://payhip.com/ZalizmanTrading" target="_blank" rel="noopener">Visit the Payhip store</a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>© 2026 zalizman.se</span>
+    <span><a href="https://payhip.com/ZalizmanTrading" target="_blank" rel="noopener">Payhip</a> · <a href="mailto:zalizman@pm.me">zalizman@pm.me</a></span>
+    <span class="footer-note">Hobby project — runs on a demo account. Trading involves risk; past performance is not indicative of future results.</span>
+  </div>
+</footer>
+
+</body>
+</html>
+
+
+

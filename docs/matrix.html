@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Matrix Validation Server | zalizman.se</title>
+  <meta name="description" content="44 rules. One AI. No bad trades. The Matrix Validation Server validates every signal before a single order is placed.">
+  <link rel="icon" type="image/jpeg" href="images/logo.jpg">
+  <style>
+    :root {
+      --bg: #0a1524; --bg-soft: #0f1f35; --surface: #132239; --surface-2: #182b47;
+      --border: #24395c; --fg: #e9eef6; --muted: #9db0c9;
+      --brass: #d9a93c; --brass-bright: #f0c96a; --rope: #b98c4a; --sea: #4da3ff;
+      --green: #3fbf7f; --danger: #d64545; --maxw: 1120px;
+      --font-display: Georgia, 'Times New Roman', serif;
+      --font-body: "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; font-family: var(--font-body); background:
+      radial-gradient(1100px 500px at 80% -8%, rgba(77,163,255,.10), transparent 60%),
+      radial-gradient(800px 400px at 10% 0%, rgba(217,169,60,.08), transparent 55%),
+      var(--bg); color: var(--fg); line-height: 1.65; }
+    img { max-width: 100%; height: auto; display: block; }
+    a { color: var(--brass-bright); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 22px; }
+    .rope-line { height: 3px; border: 0; margin: 0; background: repeating-linear-gradient(115deg, var(--rope) 0 14px, var(--brass) 14px 22px, var(--rope) 22px 36px); opacity: .55; }
+    .site-header { position: sticky; top: 0; z-index: 50; background: rgba(10,21,36,.94); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); }
+    .site-header .wrap { display: flex; align-items: center; gap: 18px; padding: 10px 22px; }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; letter-spacing: .12em; color: var(--fg); font-size: 1rem; }
+    .brand:hover { text-decoration: none; }
+    .brand img { width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--rope); }
+    nav.main-nav { margin-left: auto; display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+    nav.main-nav a { color: var(--muted); padding: 8px 12px; border-radius: 8px; font-size: .95rem; }
+    nav.main-nav a:hover { color: var(--fg); background: var(--bg-soft); text-decoration: none; }
+    nav.main-nav a.active { color: var(--brass-bright); }
+    .btn { display: inline-block; padding: 12px 24px; border-radius: 10px; font-weight: 700; font-size: 1rem; border: 1px solid transparent; transition: transform .12s ease; cursor: pointer; }
+    .btn:hover { text-decoration: none; transform: translateY(-1px); }
+    .btn-brass { background: linear-gradient(135deg, var(--brass), var(--rope)); color: #10192b; box-shadow: 0 4px 18px rgba(217,169,60,.28); }
+    .btn-sm { padding: 8px 16px; font-size: .9rem; }
+    nav.main-nav a.btn-brass { color: #10192b; }
+    .page-hero { padding: 52px 0 40px; text-align: center; }
+    .page-hero h1 { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.8rem, 4vw, 2.7rem); margin: 0 0 12px; }
+    .page-hero p { color: var(--muted); max-width: 680px; margin: 0 auto; font-size: 1.15rem; }
+    section { padding: 48px 0; }
+    .section-title { font-family: var(--font-display); font-weight: 400; font-size: 1.8rem; margin: 0 0 8px; }
+    .section-title.centered { text-align: center; }
+    .section-sub { color: var(--muted); max-width: 680px; margin: 0 auto 30px; text-align: center; }
+    .section-soft { background: rgba(19,34,57,.45); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .story { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+    .story p { margin: 0 0 12px; }
+    .story img { border-radius: 12px; border: 1px solid var(--border); }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+    .info-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px; }
+    .info-card h3 { font-family: var(--font-display); font-weight: 400; margin: 0 0 10px; font-size: 1.2rem; color: var(--brass-bright); }
+    .info-card p { margin: 0 0 8px; color: var(--fg); font-size: .95rem; }
+    .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 26px; }
+    .feature-list { margin: 0; padding-left: 20px; color: var(--fg); font-size: .95rem; max-width: 640px; }
+    .feature-list li { margin-bottom: 10px; }
+    .feature-list strong { color: var(--brass-bright); }
+    .site-footer { padding: 30px 0 40px; border-top: 1px solid var(--border); color: var(--muted); font-size: .9rem; }
+    .site-footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .footer-note { flex-basis: 100%; font-size: .8rem; opacity: .8; }
+    .cta-band { padding: 46px 0; text-align: center; background: linear-gradient(180deg, rgba(217,169,60,.10), rgba(217,169,60,.02)); border-top: 1px solid var(--border); }
+    .cta-band h2 { font-family: var(--font-display); font-weight: 400; font-size: 1.8rem; margin: 0 0 8px; }
+    .cta-band p { color: var(--muted); margin: 0 0 20px; }
+    @media (max-width: 900px) { .story, .grid-2, .info-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 600px) { .site-header .wrap { flex-wrap: wrap; } nav.main-nav { margin-left: 0; width: 100%; justify-content: center; } }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <img src="images/logo.jpg" alt="Zalizman">
+      <span>ZALIZMAN</span>
+    </a>
+    <nav class="main-nav">
+      <a href="index.html">Home</a>
+      <a href="cbots.html">cBots</a>
+      <a href="matrix.html" class="active">Matrix</a>
+      <a href="pics.html">Gallery</a>
+      <a href="https://payhip.com/ZalizmanTrading" class="btn btn-brass btn-sm" target="_blank" rel="noopener">Buy on Payhip</a>
+    </nav>
+  </div>
+</header>
+<hr class="rope-line">
+
+<section class="page-hero">
+  <div class="wrap">
+    <h1>Matrix Validation Server</h1>
+    <p>44 rules. One AI. No bad trades.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap story">
+    <div>
+      <p>Every trading system has the same problem. The setup looks good. The chart agrees. And then the trade opens at exactly the wrong moment — wrong session, correlated pair already running, spread too wide, trend actually pointing the other way.</p>
+      <p><strong>The Matrix Validation Server exists to catch that moment before it costs you.</strong></p>
+    </div>
+    <div>
+      <img src="images/ai-validator.jpg" alt="Matrix Validation Server dashboard" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<section class="section-soft">
+  <div class="wrap">
+    <h2 class="section-title centered">How it works</h2>
+    <p class="section-sub">Every signal from your cBot goes through the server before a single order is placed. The server doesn't guess. It runs the signal through 44 individual filter blocks, one by one, each checking a specific condition.</p>
+    <div class="info-grid">
+      <div class="info-card">
+        <h3>Session filters</h3>
+        <p>Is this a valid trading window for this pair, or is liquidity too thin?</p>
+      </div>
+      <div class="info-card">
+        <h3>Trend filters</h3>
+        <p>Is price actually moving in the direction the bot wants to trade, or just retracing?</p>
+      </div>
+      <div class="info-card">
+        <h3>Strength filters</h3>
+        <p>Is the currency behind the signal showing real momentum, or is it flat?</p>
+      </div>
+      <div class="info-card">
+        <h3>PSAR filters</h3>
+        <p>Has the parabolic SAR confirmed the move on the relevant timeframes?</p>
+      </div>
+      <div class="info-card">
+        <h3>Risk filters</h3>
+        <p>Is there already too much exposure on correlated pairs? Is drawdown within limits?</p>
+      </div>
+      <div class="info-card">
+        <h3>...and 39 more</h3>
+        <p>Spread, zones, divergence, momentum, box structure, direction bias — every angle a careful trader would check by hand, checked automatically on every signal.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap story">
+    <div>
+      <h2 class="section-title">The AI layer</h2>
+      <p>The last check isn't a rule. It's a question.</p>
+      <p>The server sends the full signal context — pair, direction, score, zone data, session, ATR, RSI, currency strength readings — to a large language model. The AI layer runs with automatic provider fallback: if the primary model is unreachable, the next one takes over, so a single provider outage never blocks a trade.</p>
+      <p>The AI reads everything and returns one of two answers: <strong>ALLOW</strong> or <strong>BLOCK</strong>. It also explains why. Every decision is logged — what the AI saw, what it concluded, and how long it took. Response time is typically under two seconds.</p>
+      <p>This isn't AI for the sake of AI. The 44 filters handle the mechanical rules. The AI handles the context — the things that are hard to express as a rule but obvious when you see the full picture.</p>
+    </div>
+    <div>
+      <img src="images/dash1.jpg" alt="Live dashboard — the system's decisions in real time" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<section class="section-soft">
+  <div class="wrap">
+    <h2 class="section-title centered">The result</h2>
+    <div class="wrap" style="display:flex; justify-content:center; margin-top:26px;">
+      <ul class="feature-list">
+        <li>Signals that would have opened losing trades during dead sessions — <strong>blocked</strong>.</li>
+        <li>Signals that looked fine on one pair but were correlated with three others already running — <strong>blocked</strong>.</li>
+        <li>Signals that passed every mechanical rule but arrived during a high-impact news window — <strong>blocked</strong>.</li>
+        <li>Signals that were genuinely good — <strong>allowed</strong>, with SL and TP already calculated, position size confirmed, Telegram notification sent.</li>
+      </ul>
+    </div>
+    <p class="section-sub" style="margin-top:28px;">The server runs in the background. You don't watch it. That's the point.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 class="section-title centered">What it runs on</h2>
+    <div class="grid-2" style="margin-top:26px;">
+      <div class="info-card">
+        <h3>A basic VPS</h3>
+        <p>5–10 euros a month from any provider. The server is a Python application — no heavy dependencies, no database beyond SQLite, no cloud services required beyond an API key for the AI provider.</p>
+      </div>
+      <div class="info-card">
+        <h3>A live web dashboard</h3>
+        <p>Every signal check in real time — what came in, which blocks it passed, which it failed, and what the AI decided. You can watch your system think.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="wrap">
+    <h2>Part of the ZaliMatrix ecosystem</h2>
+    <p>Connects to GapTrader, FutureTrader, and MatrixBasket Hybrid — or runs standalone as a filter layer for any cTrader cBot that can make an HTTP request.</p>
+    <a class="btn btn-brass" href="https://payhip.com/ZalizmanTrading" target="_blank" rel="noopener">Get the Matrix Validation Server</a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>© 2026 zalizman.se</span>
+    <span><a href="https://payhip.com/ZalizmanTrading" target="_blank" rel="noopener">Payhip</a> · <a href="mailto:zalizman@pm.me">zalizman@pm.me</a></span>
+    <span class="footer-note">Hobby project — runs on a demo account. Trading involves risk; past performance is not indicative of future results.</span>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Galleri | zalizman.se</title>
+  <meta name="description" content="Galleri: snapshots av ZaliMatrix-strategier, valideringsserverns statistik och cBots i aktion.">
+  <link rel="icon" type="image/jpeg" href="images/logo.jpg">
+  <style>
+    :root {
+      --bg: #0a1524; --bg-soft: #0f1f35; --surface: #132239; --surface-2: #182b47;
+      --border: #24395c; --fg: #e9eef6; --muted: #9db0c9;
+      --brass: #d9a93c; --brass-bright: #f0c96a; --rope: #b98c4a; --sea: #4da3ff;
+      --maxw: 1120px; --font-display: Georgia, 'Times New Roman', serif;
+      --font-body: "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; font-family: var(--font-body); background:
+      radial-gradient(1100px 500px at 80% -8%, rgba(77,163,255,.10), transparent 60%),
+      radial-gradient(800px 400px at 10% 0%, rgba(217,169,60,.08), transparent 55%),
+      var(--bg); color: var(--fg); line-height: 1.65; }
+    img { max-width: 100%; height: auto; display: block; }
+    a { color: var(--brass-bright); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 22px; }
+    .rope-line { height: 3px; border: 0; margin: 0; background: repeating-linear-gradient(115deg, var(--rope) 0 14px, var(--brass) 14px 22px, var(--rope) 22px 36px); opacity: .55; }
+    .site-header { position: sticky; top: 0; z-index: 50; background: rgba(10,21,36,.94); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); }
+    .site-header .wrap { display: flex; align-items: center; gap: 18px; padding: 10px 22px; }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; letter-spacing: .12em; color: var(--fg); font-size: 1rem; }
+    .brand:hover { text-decoration: none; }
+    .brand img { width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--rope); }
+    nav.main-nav { margin-left: auto; display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+    nav.main-nav a { color: var(--muted); padding: 8px 12px; border-radius: 8px; font-size: .95rem; }
+    nav.main-nav a:hover { color: var(--fg); background: var(--bg-soft); text-decoration: none; }
+    nav.main-nav a.active { color: var(--brass-bright); }
+    .btn { display: inline-block; padding: 8px 16px; border-radius: 10px; font-weight: 700; font-size: .9rem; }
+    .btn-brass { background: linear-gradient(135deg, var(--brass), var(--rope)); color: #10192b; }
+    nav.main-nav a.btn-brass { color: #10192b; }
+    .page-hero { padding: 52px 0 40px; text-align: center; }
+    .page-hero h1 { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.8rem, 4vw, 2.7rem); margin: 0 0 12px; }
+    .page-hero p { color: var(--muted); max-width: 680px; margin: 0 auto; }
+    section { padding: 48px 0; }
+    .gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .gallery figure { margin: 0; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; transition: transform .15s ease, border-color .15s ease; }
+    .gallery figure:hover { transform: translateY(-3px); border-color: var(--rope); }
+    .gallery img { width: 100%; }
+    .gallery figcaption { padding: 12px 16px; color: var(--muted); font-size: .9rem; border-top: 1px solid var(--border); }
+    .site-footer { padding: 30px 0 40px; border-top: 1px solid var(--border); color: var(--muted); font-size: .9rem; }
+    .site-footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .footer-note { flex-basis: 100%; font-size: .8rem; opacity: .8; }
+    @media (max-width: 700px) { .gallery { grid-template-columns: 1fr; } .site-header .wrap { flex-wrap: wrap; } nav.main-nav { margin-left: 0; width: 100%; justify-content: center; } }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <img src="images/logo.jpg" alt="Zalizman">
+      <span>ZALIZMAN</span>
+    </a>
+    <nav class="main-nav">
+      <a href="index.html">Hem</a>
+      <a href="cbots.html">cBots</a>
+      <a href="matrix.html">Matrix</a>
+      <a href="pics.html" class="active">Galleri</a>
+      <a href="https://payhip.com/ZalizmanTrading" class="btn btn-brass" target="_blank" rel="noopener">Buy on Payhip</a>
+    </nav>
+  </div>
+</header>
+<hr class="rope-line">
+
+<section class="page-hero">
+  <div class="wrap">
+    <h1>Galleri</h1>
+    <p>Snapshots av strategier, valideringsserverns statistik och cBots i aktion.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="gallery">
+      <figure><img src="images/dash1.jpg" alt="TradeControl dashboard" loading="lazy"><figcaption>TradeControl Dashboard — live PnL overview</figcaption></figure>
+      <figure><img src="images/dash2.jpg" alt="TradeControl dashboard detalj" loading="lazy"><figcaption>TradeControl Dashboard — risk &amp; korrelationsvy</figcaption></figure>
+      <figure><img src="images/ai-validator.jpg" alt="Matrix Validation Server" loading="lazy"><figcaption>Matrix Validation Server — 44 filter blocks at work</figcaption></figure>
+      <figure><img src="images/matrix-indicator.jpg" alt="MatrixBasket indikator" loading="lazy"><figcaption>MatrixBasket — multi-currency strength H4/H1</figcaption></figure>
+      <figure><img src="images/gaptrader.jpg" alt="GapTrader" loading="lazy"><figcaption>GapTrader — box entries in range markets</figcaption></figure>
+      <figure><img src="images/futuretrader.jpg" alt="FutureTrader" loading="lazy"><figcaption>FutureTrader — trendline entries</figcaption></figure>
+      <figure><img src="images/linehelper.jpg" alt="LineHelper Pro" loading="lazy"><figcaption>LineHelper Pro — trigger lines on the chart</figcaption></figure>
+      <figure><img src="images/gap.jpg" alt="Gap-detektion" loading="lazy"><figcaption>Gap detection — unfilled price gaps in focus</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>© 2026 zalizman.se</span>
+    <span><a href="https://payhip.com/ZalizmanTrading" target="_blank" rel="noopener">Payhip</a> · <a href="mailto:zalizman@pm.me">zalizman@pm.me</a></span>
+    <span class="footer-note">Hobby project — runs on a demo account. Trading involves risk; past performance is not indicative of future results.</span>
+  </div>
+</footer>
+
+</body>
+</html>
+
